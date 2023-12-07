@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         child: Icon(
-          Icons.note_add_outlined,
+          Icons.add,
           color: Colors.indigo,
           size: 30,
         ),

@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Todo App",
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
             toolbarHeight: 150,
             backgroundColor: Colors.white,
             foregroundColor: Colors.black),
       ),
       home: AnimatedSplashScreen(
-        nextScreen: HomeScreen(),
+        nextScreen: const HomeScreen(),
         splash: Image.asset('assets/images/todo.png'),
         duration: 3000,
         backgroundColor: Colors.grey.shade900,
