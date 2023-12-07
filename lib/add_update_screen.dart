@@ -49,21 +49,22 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
-        toolbarHeight: 170,
+        backgroundColor: Colors.teal,
+        toolbarHeight: 150,
         centerTitle: true,
         title: Text(
           appTitle,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
+          style: const TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 20,
               color: Colors.white,
-              letterSpacing: 1),
+              letterSpacing: 1
+          ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 100),
-        child: SingleChildScrollView(
+      body:SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
               Form(
@@ -71,129 +72,163 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: TextFormField(
+                        cursorColor: Colors.black,
+                        style:const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18,
+                            color: Colors.black,
+                            letterSpacing: 1
+                        ),
                         keyboardType: TextInputType.multiline,
                         controller: titleController,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(), hintText: " Title"),
+                          hintStyle:  TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 14,
+                              color: Colors.grey.withOpacity(0.4),
+                              letterSpacing: 0.30
+
+                          ),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0,),),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: Colors.green), // Set focused border color here
+                          ),
+                          hintText: "Title",
+                        ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Enter some text";
+                            return "Enter title of your task";
                           }
                           return null;
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 55,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: TextFormField(
+                        cursorColor: Colors.black,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18,
+                            color: Colors.black,
+                            letterSpacing: 1
+                        ),
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         controller: descController,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: " Description"),
+                          hintStyle: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 14,
+                              color: Colors.grey.withOpacity(0.4),
+                              letterSpacing: 0.30
+                          ),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), // Set border radius here
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: Colors.green), // Set focused border color here
+                          ),
+                          hintText: "Description",
+                        ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Enter some text";
+                            return "Enter description about your task";
                           }
                           return null;
                         },
                       ),
                     ),
+
                   ],
                 ),
               ),
-              SizedBox(
-                height: 40,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Material(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10),
-                      child: InkWell(
-                        onTap: () {
-                          if (_formkey.currentState!.validate()) {
-                            if (widget.update == true) {
-                              dbHelper!.update(
-                                TodoModel(
-                                    id: widget.todoId,
-                                    title: titleController.text,
-                                    desc: descController.text),
-                              );
-                            } else {
-                              dbHelper!.insert(
-                                TodoModel(
-                                    title: titleController.text,
-                                    desc: descController.text),
-                              );
-                            }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ),
+              const SizedBox(height: 50,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Material(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        if (_formkey.currentState!.validate()) {
+                          if (widget.update == true) {
+                            dbHelper!.update(
+                              TodoModel(
+                                  id: widget.todoId,
+                                  title: titleController.text,
+                                  desc: descController.text),
                             );
-                            titleController.clear;
-                            descController.clear();
+                          } else {
+                            dbHelper!.insert(
+                              TodoModel(
+                                  title: titleController.text,
+                                  desc: descController.text),
+                            );
                           }
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: 50,
-                          width: 120,
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          ),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ),
+                          );
+                          titleController.clear;
+                          descController.clear();
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        height: 40,
+                        width: 80,
+                        child: const Text(
+                          "Save",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 14),
                         ),
                       ),
                     ),
-                    Material(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            titleController.clear();
-                            descController.clear();
-                          });
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: 50,
-                          width: 120,
-                          child: Text(
-                            "Clear",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          ),
+                  ),
+                  Material(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          titleController.clear();
+                          descController.clear();
+                        });
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        height: 40,
+                        width: 80,
+                        child: const Text(
+                          "Clear All",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 14),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
+
       ),
     );
   }
